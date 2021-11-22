@@ -16,8 +16,15 @@ contract KaseiCoinCrowdsale is Crowdsale, MintedCrowdsale { // UPDATE THE CONTRA
         uint rate, //from class we kniw this is in TKNbits
         address payable wallet,
         KaseiCoin token // this will work with the KaseiCoin
+        uint goal, // the crowdsale goal
+        uint open, // the crowdsale opening time
+        uint close // the crowdsale closing time
     ) 
-    public Crowdsale(rate, wallet, token) {
+    public Crowdsale(rate, wallet, token) 
+    CappedCrowdsale(goal)
+    TimedCrowdsale(open, close)
+    RefundableCrowdsale(goal)
+    {
         // constructor can stay empty
     }
 }
@@ -43,7 +50,7 @@ contract KaseiCoinCrowdsaleDeployer {
         kasei_token_address = address(token);
 
         // Create a new instance of the `KaseiCoinCrowdsale` contract
-        KaseiCoinCrowdsale kasei_token = new KaseiCoinCrowdsale(1, wallet, token);
+       KaseiCoinCrowdsale kasei_crowdsale = new KaseiCoinCrowdsale (1, wallet, token, goal, now, now + 24 weeks);
             
         // Aassign the `KaseiCoinCrowdsale` contract’s address to the `kasei_crowdsale_address` variable.
         kasei_crowdsale_address = address(kasei_token);
