@@ -19,6 +19,7 @@ contract KaseiCoin is ERC20, ERC20Detailed, ERC20Mintable {
         string memory symbol,
         uint initial_supply
     )
+    // 18 is the value for the decimal parameter
         ERC20Detailed(name, symbol, 18)
         public
         {
